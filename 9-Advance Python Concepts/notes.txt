@@ -1,0 +1,6 @@
+explain about Iterators, Generators,Decorators with following structure and examples
+    1.where to use
+    2.How to use
+    3.Why to use
+Any cheat codes
+Real world use case with real world examples

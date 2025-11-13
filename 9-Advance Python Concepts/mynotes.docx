@@ -1,0 +1,186 @@
+Iterators
+----------
+1. Where to use:
+   - Use iterators when you need to traverse elements of a collection (like lists, tuples, or custom objects) one at a time, especially when working with large datasets or streams.
+
+2. How to use:
+   - You can get an iterator from any iterable using the `iter()` function, and retrieve items using `next()`.
+   - You can also create custom iterators by defining a class with `__iter__()` and `__next__()` methods.
+
+3. Why to use:
+   - Iterators provide a memory-efficient way to access elements one at a time, without loading everything into memory.
+   - They allow you to process data streams or infinite sequences.
+
+4. Different ways to use:
+   - Using built-in iterables:
+     ```python
+     my_list = [1, 2, 3]
+     it = iter(my_list)
+     print(next(it))  # 1
+     ```
+   - Custom iterator class:
+     ```python
+     class Counter:
+         def __init__(self, low, high):
+             self.current = low
+             self.high = high
+         def __iter__(self):
+             return self
+         def __next__(self):
+             if self.current > self.high:
+                 raise StopIteration
+             self.current += 1
+             return self.current - 1
+     for num in Counter(1, 3):
+         print(num)
+     ```
+   - The most common way is using a `for` loop, which automatically uses iterators internally.
+   - For custom iteration logic, define your own iterator class.
+
+Cheat codes:
+   - Use `for item in iterable:` for simple iteration.
+   - Use `enumerate()` to get index and value.
+
+Real world example:
+   - Reading a large file line by line:
+     ```python
+     with open('bigfile.txt') as f:
+         for line in f:
+             process(line)
+     ```
+
+Generators
+----------
+1. Where to use:
+   - Use generators when you need to produce a sequence of values lazily (on demand), especially for large or infinite sequences.
+
+2. How to use:
+   - Define a function with `yield` statements. Calling the function returns a generator object.
+   - Use `next()` or a `for` loop to get values.
+
+3. Why to use:
+   - Generators are more concise than writing iterator classes.
+   - They save memory by yielding items one at a time.
+
+4. Different ways to use:
+   - Generator function:
+     ```python
+     def countdown(n):
+         while n > 0:
+             yield n
+             n -= 1
+     for i in countdown(3):
+         print(i)
+     ```
+   - Generator expression:
+     ```python
+     squares = (x*x for x in range(5))
+     for s in squares:
+         print(s)
+     ```
+   - Generator functions are best for complex logic; generator expressions are best for simple cases.
+
+Cheat codes:
+   - Use generator expressions for quick, simple generators: `(x for x in iterable)`
+
+Real world example:
+   - Processing large CSV files row by row:
+     ```python
+     def read_csv(filename):
+         with open(filename) as f:
+             for line in f:
+                 yield line.strip().split(',')
+     for row in read_csv('data.csv'):
+         process(row)
+     ```
+
+Decorators
+----------
+1. Where to use:
+   - Use decorators to add reusable functionality (like logging, timing, authentication) to functions or methods without changing their code.
+
+2. How to use:
+   - Define a function that takes another function and returns a new function.
+   - Apply it with the `@decorator_name` syntax above your function.
+
+3. Why to use:
+   - Decorators help keep code DRY (Don't Repeat Yourself) and separate concerns.
+   - They make it easy to apply the same logic to multiple functions.
+
+4. Different ways to use:
+   - Simple decorator:
+     ```python
+     def my_decorator(func):
+         def wrapper():
+             print("Before")
+             func()
+             print("After")
+         return wrapper
+
+     @my_decorator
+     def greet():
+         print("Hello")
+     greet()
+     ```
+   - Decorator with arguments:
+     ```python
+     def repeat(n):
+         def decorator(func):
+             def wrapper(*args, **kwargs):
+                 for _ in range(n):
+                     func(*args, **kwargs)
+             return wrapper
+         return decorator
+
+     @repeat(3)
+     def say_hi():
+         print("Hi!")
+     say_hi()
+     ```
+   - The most common way is using the `@decorator` syntax.
+   - For decorators that need arguments, use an extra function layer.
+
+Cheat codes:
+   - Use `functools.wraps` to preserve function metadata.
+   - Use built-in decorators like `@staticmethod`, `@classmethod`, `@property`.
+
+Real world example:
+   - Logging function calls:
+     ```python
+     import functools
+     def log(func):
+         @functools.wraps(func)
+         def wrapper(*args, **kwargs):
+             print(f"Calling {func.__name__}")
+             return func(*args, **kwargs)
+         return wrapper
+
+     @log
+     def process(data):
+         pass
+     process('test')
+     ```
+
+### Decorators 🧩
+
+- **Purpose:** Add extra functionality to functions.
+- **Syntax:** `@decorator_name`
+- **Example:**
+    ```python
+    @log
+    def process(data):
+        pass
+    ```
+
+# Explanation of *args and **kwargs
+
+In Python, `*args` and `**kwargs` are special symbols used in function definitions to allow the function to accept a variable number of arguments.
+
+- `*args` allows a function to accept any number of positional arguments. Inside the function, `args` is a tuple containing all the extra positional arguments passed to the function.
+- `**kwargs` allows a function to accept any number of keyword arguments. Inside the function, `kwargs` is a dictionary containing all the extra keyword arguments passed to the function.
+
+This is useful when you want your function or decorator to be flexible and work with functions that take different numbers or types of arguments. For example, in a decorator, using `*args` and `**kwargs` ensures that the decorator can wrap any function, regardless of its signature.
+
+
+
+

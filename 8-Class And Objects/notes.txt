@@ -1,0 +1,7 @@
+# Python Classes and Objects - Notes
+
+## 1. What is a Class?
+- A class is a blueprint for creating objects.
+- It defines attributes (variables) and methods (functions) that its objects will have.
+
+### Example:

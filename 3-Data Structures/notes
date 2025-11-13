@@ -1,0 +1,116 @@
+# Differences Between Lists, Tuples, Sets, and Dictionaries in Python
+
+**List**
+
+- **Syntax:** `[1, 2, 3]`
+- **Mutable:** Yes (can be changed after creation)
+- **Ordered:** Yes (Python 3.7+)
+- **Duplicates:** Allowed
+- **Indexing:** Yes (access by position)
+- **Declaration:** `my_list = [1, 2, 3]`
+- **Use Case:** Use when you need an ordered, changeable collection of items.
+- **When to Use:** When you need to modify, reorder, or access elements by index.
+- **How to Use:** Append, remove, slice, etc.
+- **Why to Use:** Flexible and general purpose.
+- **Accessing Elements:**
+
+  - By index: `fruits[0]`
+  - By slicing: `fruits[1:3]`
+  - Iteration: `for fruit in fruits: ...`
+
+  ```python
+  fruits = ['apple', 'banana', 'cherry']
+  print(fruits[0])        # 'apple'
+  print(fruits[1:3])      # ['banana', 'cherry']
+  for fruit in fruits:
+          print(fruit)
+  ```
+
+---
+
+**Tuple**
+
+- **Syntax:** `(1, 2, 3)`
+- **Mutable:** No (cannot be changed after creation)
+- **Ordered:** Yes
+- **Duplicates:** Allowed
+- **Indexing:** Yes
+- **Declaration:** `my_tuple = (1, 2, 3)`
+- **Use Case:** Use for fixed, ordered data that should not change.
+- **When to Use:** When data should remain constant.
+- **How to Use:** Access by index.
+- **Why to Use:** Protect data from changes.
+- **Accessing Elements:**
+
+  - By index: `coordinates[0]`
+  - By slicing: `coordinates[:2]`
+  - Iteration: `for value in coordinates: ...`
+
+  ```python
+  coordinates = (10.0, 20.0)
+  print(coordinates[0])   # 10.0
+  print(coordinates[:2])  # (10.0, 20.0)
+  for value in coordinates:
+          print(value)
+  ```
+
+---
+
+**Set**
+
+- **Syntax:** `{1, 2, 3}`
+- **Mutable:** Yes
+- **Ordered:** No
+- **Duplicates:** Not allowed
+- **Indexing:** No
+- **Declaration:** `my_set = {1, 2, 3}`
+- **Use Case:** Use for unique, unordered elements.
+- **When to Use:** When uniqueness is required.
+- **How to Use:** Add/remove elements, perform set operations.
+- **Why to Use:** Remove duplicates, fast membership tests.
+- **Accessing Elements:**
+
+  - Iteration: `for num in unique_numbers: ...`
+  - Membership test: `2 in unique_numbers`
+
+  ```python
+  unique_numbers = {1, 2, 3}
+  for num in unique_numbers:
+          print(num)
+  print(2 in unique_numbers)  # True
+  ```
+
+---
+
+**Dictionary**
+
+- **Syntax:** `{'a': 1, 'b': 2}`
+- **Mutable:** Yes
+- **Ordered:** Yes (Python 3.7+)
+- **Duplicates:** Keys not allowed, values allowed
+- **Indexing:** Access by key (not by position)
+- **Declaration:** `my_dict = {'a': 1, 'b': 2}`
+- **Use Case:** Use for mapping keys to values.
+- **When to Use:** When you need to associate keys with values.
+- **How to Use:** Add/remove items, access by key.
+- **Why to Use:** Fast lookup, structured data.
+- **Accessing Elements:**
+
+  - By key: `student['name']`
+  - Get method: `student.get('age')`
+  - Iteration over keys/values/items:
+    - `for key in student: ...`
+    - `for value in student.values(): ...`
+    - `for key, value in student.items(): ...`
+
+  ```python
+  student = {'name': 'Alice', 'age': 20}
+  print(student['name'])         # 'Alice'
+  print(student.get('age'))      # 20
+  for key in student:
+          print(key, student[key])
+  for value in student.values():
+          print(value)
+  for key, value in student.items():
+          print(key, value)
+  ```
