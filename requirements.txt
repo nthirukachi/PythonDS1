@@ -7,3 +7,10 @@ flask
 memory_profiler
 streamlit
 scikit-learn
+python-dotenv
+azure-ai-textanalytics==5.3.0
+azure-cognitiveservices-speech==1.42.0
+azure-identity
+azure-ai-projects
+openai
+azure-cli
