@@ -14,3 +14,4 @@ azure-identity
 azure-ai-projects
 openai
 azure-cli
+azure-ai-vision-imageanalysis==1.0.0
