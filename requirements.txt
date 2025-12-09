@@ -13,5 +13,6 @@ azure-cognitiveservices-speech==1.42.0
 azure-identity
 azure-ai-projects
 openai
-azure-cli
 azure-ai-vision-imageanalysis==1.0.0
+azure-ai-vision-face==1.0.0b2
+pillow
