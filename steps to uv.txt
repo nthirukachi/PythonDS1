@@ -1,0 +1,22 @@
+To install UV
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+
+To initialize project
+uv init demouv
+
+To Create virtual environment
+cd demouv
+uv venv
+
+To activate virtual environment
+.venv\Scripts\activate
+
+
+To install packages from a single file
+uv add -r requirements.txt
+
+
+Running python program
+uv run main.py
+
+uv tree

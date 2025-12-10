@@ -16,3 +16,4 @@ openai
 azure-ai-vision-imageanalysis==1.0.0
 azure-ai-vision-face==1.0.0b2
 pillow
+azure-cognitiveservices-vision-customvision
