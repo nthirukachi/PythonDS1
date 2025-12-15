@@ -1,6 +1,9 @@
 This folder contains Python code
 https://microsoftlearning.github.io/mslearn-ai-vision/Instructions/Labs/04-image-classification.html
 
+
+
+
 to perform image classification using
 the Azure Custom Vision service.
 The code demonstrates how to:
@@ -26,4 +29,3 @@ Additional Resources:
 - GitHub Repository for Azure Samples: https://github.com/Azure-Samples/cognitive-services-python-sdk-samples
 - Microsoft Learn GitHub: https://github.com/MicrosoftLearning/MSLearn-AI-Vision
 - Microsoft Learn AI Vision Labs: https://microsoftlearning.github.io/mslearn-ai-vision/Instructions/Labs/04-image-classification.html
-    
