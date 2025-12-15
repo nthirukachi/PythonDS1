@@ -1,0 +1,1 @@
+ encoder = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
