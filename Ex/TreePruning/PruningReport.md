@@ -2,6 +2,66 @@
 
 ## 1. Problem Statement
 **Goal**: Demonstrate the "Overfitting" phenomenon in Decision Trees and implement two strategies (Pre-Pruning and Post-Pruning) to fix it.
+Diagnose and Fix Overfitting with Pruning [CODING]
+Dataset: Heart Disease UCI Dataset
+•	Download from: https://www.kaggle.com/datasets/ronitf/heart-disease-uci
+•	OR Breast Cancer Wisconsin: sklearn.datasets.load_breast_cancer()
+Your Tasks - Write Complete Python Code:
+
+**Part 1:** Demonstrate Overfitting (25 points)
+1.	Load dataset and split into train (70%), validation (15%), test (15%)
+2.	Train a highly overfit decision tree:
+overfit_tree = DecisionTreeClassifier(random_state=42)  # No constraints
+3.	Measure and visualize: 
+* Training accuracy vs validation accuracy
+* Number of leaf nodes
+* Tree depth
+* Visualize the tree (it should be very deep)
+4.	Create learning curves showing train/val accuracy vs tree depth
+
+**Part 2:** Implement Pre-Pruning Techniques (35 points) Test different hyperparameters:
+# Experiment with these combinations
+max_depths = [3, 5, 10, 15, 20, None]
+min_samples_splits = [2, 10, 50, 100]
+min_samples_leafs = [1, 5, 20, 50]
+1.	Create a grid search over these parameters
+2.	For each combination, record: 
+*	Train accuracy, validation accuracy
+*	Number of leaf nodes
+*	Tree depth
+3.	Create comparison table and visualizations: 
+*	Heatmap: max_depth vs min_samples_split showing val accuracy
+*	Plot: Number of leaves vs validation accuracy
+*	Plot: Train-val accuracy gap for different configurations
+
+**Part 3:** Implement Post-Pruning with Cost Complexity (25 points)
+path = tree.cost_complexity_pruning_path(X_train, y_train)
+ccp_alphas = path.ccp_alphas
+1.	Generate pruning path for different ccp_alpha values
+2.	Train trees for each alpha value
+3.	Plot alpha vs: 
+*	Number of nodes
+*	Train accuracy
+*	Validation accuracy
+4.	Select optimal alpha that maximizes validation accuracy
+5.	Compare pre-pruning vs post-pruning results
+
+**Part 4:** Final Model Evaluation (15 points)
+1.	Select best pruned tree based on validation performance
+2.	Evaluate on test set
+3.	Create comparison table:
+Model	Train Acc	Val Acc	Test Acc	Num Leaves	Depth	Train-Val Gap
+Overfit	...	...	...	...	...	...
+Best Pre-Pruned	...	...	...	...	...	...
+Best Post-Pruned	...	...	...	...	...	...
+4.	Explain which approach is best and why (bias-variance tradeoff)
+Deliverables:
+*	Complete code demonstrating overfitting
+*	Grid search results for pre-pruning
+*	Post-pruning with ccp_alpha analysis
+*	All visualizations (learning curves, heatmaps, comparison plots)
+*	Comparison table and written analysis
+
 **Dataset**: Breast Cancer Wisconsin (Diagnostic) Dataset.
 **Context**: Decision Trees essentially memorize data. Without limits, they create complex rules for noise, leading to poor generalization. We must find the "Goldilocks" zone of complexity.
 
