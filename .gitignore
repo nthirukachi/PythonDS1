@@ -12,3 +12,6 @@ wheels/
 uv.lock
 
 pyproject.toml
+
+# Data files
+*.csv
