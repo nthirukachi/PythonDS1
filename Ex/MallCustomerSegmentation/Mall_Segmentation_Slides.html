@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mall Customer Segmentation - Slides</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .slide-container { width: 900px; height: 600px; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 12px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .slide { display: none; padding: 60px; height: 100%; box-sizing: border-box; animation: fadeIn 0.5s; }
+        .slide.active { display: block; }
+        h1 { color: #2c3e50; font-size: 2.5em; margin-bottom: 0.5em; }
+        h2 { color: #34495e; margin-top: 0; }
+        .content { font-size: 1.2em; line-height: 1.6; color: #555; }
+        .controls { position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; }
+        button { padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; transition: background 0.2s; }
+        button:hover { background: #2980b9; }
+        button:disabled { background: #bdc3c7; cursor: not-allowed; }
+        .progress { position: absolute; bottom: 0; left: 0; height: 5px; background: #3498db; transition: width 0.3s; }
+        li { margin-bottom: 10px; }
+        strong { color: #2c3e50; }
+        
+        /* Specific Slide Styles */
+        .title-slide { text-align: center; display: flex !important; flex-direction: column; justify-content: center; background: linear-gradient(135deg, #3498db, #8e44ad); color: white; }
+        .title-slide h1 { color: white; }
+        .title-slide h2 { color: #ecf0f1; font-weight: 300; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container">
+        <!-- Progress Bar -->
+        <div class="progress" id="progressBar"></div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide title-slide active">
+            <h1>Mall Customer Segmentation</h1>
+            <h2>Unlocking Customer Value through Data</h2>
+            <p><strong>Method:</strong> K-Means Clustering & Silhouette Analysis</p>
+        </div>
+
+        <!-- Slide 2: Introduction -->
+        <div class="slide">
+            <h1>1. Introduction & Objective</h1>
+            <div class="content">
+                <p><strong>The Mission:</strong> Move beyond generic marketing by identifying mathematically distinct customer personas.</p>
+                <ul>
+                    <li><strong>Data:</strong> Annual Income ($k) vs Spending Score (1-100).</li>
+                    <li><strong>Challenge:</strong> Human intuition fails at scale. We need Unsupervised Learning.</li>
+                    <li><strong>Goal:</strong> Validate customer segments using <em>K-Means</em> and <em>Silhouette Analysis</em>.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Steps Followed -->
+        <div class="slide">
+            <h1>2. Steps Followed</h1>
+            <div class="content">
+                <ol>
+                    <li><strong>Data Simulation:</strong> Generated synthetic data mimicking Kaggle's "Mall Customers" (Income/Score clusters).</li>
+                    <li><strong>Preprocessing:</strong> Applied <code>StandardScaler</code> so Income ($15k-$140k) doesn't overpower Score (1-100).</li>
+                    <li><strong>Analysis Loop:</strong> Tested K=2, 3, 4, 5. Calculated <em>Inertia</em> (tightness) and <em>Silhouette</em> (separation).</li>
+                    <li><strong>Validation:</strong> Used Elbow Plot and Knife Plots to select Optimal K.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Slide 4: Detailed Output -->
+        <div class="slide">
+            <h1>3. Detailed Output Analysis</h1>
+            <div class="content">
+                <ul>
+                    <li><strong>The Elbow Plot:</strong> Shows a clear bend at <strong>K=5</strong>. Adding a 6th cluster yields diminishing returns.</li>
+                    <li><strong>Silhouette Score:</strong> Peaked at K=5 (>0.6).</li>
+                    <li><strong>Knife Plot:</strong> Showed 5 thick, even "blades". This confirms we don't have "weak" or "ambiguous" clusters.</li>
+                </ul>
+                <p><em>Verdict: Validated 5 Distinct Market Segments.</em></p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Observations (Personas) -->
+        <div class="slide">
+            <h1>4. Observations: The 5 Personas</h1>
+            <div class="content">
+                <ul>
+                    <li><strong>Type 1: Sensible Savers:</strong> High Income, Low Spend. <em>(Needs Value Prop)</em></li>
+                    <li><strong>Type 2: VIPs:</strong> High Income, High Spend. <em>(The "Whales" - Retention Key)</em></li>
+                    <li><strong>Type 3: Impulse Crowd:</strong> Low Income, High Spend. <em>(Trend sensitive)</em></li>
+                    <li><strong>Type 4: Budget Baseline:</strong> Low Income, Low Spend.</li>
+                    <li><strong>Type 5: Balanced Middle:</strong> Average on both. <em>(Reliable Volume)</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: Conclusion -->
+        <div class="slide">
+            <h1>5. Strategic Recommendations</h1>
+            <div class="content">
+                <p><strong>Strategy Shift:</strong> Move from "One-Size-Fits-All" to "Persona-Protocol".</p>
+                <ul>
+                    <li><strong>Protocol A (VIPs):</strong> Elite loyalty programs, no discounts.</li>
+                    <li><strong>Protocol B (Savers):</strong> Focus on "Investment Quality" marketing.</li>
+                    <li><strong>Protocol C (Impulse):</strong> Flash sales & Instagram ads.</li>
+                </ul>
+                <p><strong>Conclusion:</strong> K=5 segmentation allows for precise targeting, maximizing ROI per email sent.</p>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button id="prevBtn" onclick="changeSlide(-1)" disabled>Previous</button>
+            <button id="nextBtn" onclick="changeSlide(1)">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function updateUI() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) slide.classList.add('active');
+            });
+
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = `${progress}%`;
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= slides.length) currentSlide = slides.length - 1;
+            updateUI();
+        }
+
+        // Initialize
+        updateUI();
+        
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') changeSlide(1);
+            if (e.key === 'ArrowLeft') changeSlide(-1);
+        });
+    </script>
+</body>
+</html>
