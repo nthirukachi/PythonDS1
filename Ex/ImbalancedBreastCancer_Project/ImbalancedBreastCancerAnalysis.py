@@ -243,7 +243,7 @@ plt.tight_layout()
 
 # What: Show the 6-grid plot.
 # When: End of training loop.
-plt.show()
+# plt.show()
 
 # ==========================================
 # Part B: Evaluation & Analysis
@@ -277,7 +277,7 @@ plt.ylabel('True Positive Rate (Malignant Caught)')
 plt.title('ROC Curves (Target: Class 0 Malignant)')
 plt.legend()
 plt.grid(True)
-plt.show()
+# plt.show()
 
 # 2. Results DataFrame
 # What: Convert dictionary list to Pandas Table.
@@ -312,7 +312,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # What: Render plot.
-plt.show()
+# plt.show()
 
 # ==========================================
 # Analysis Text
