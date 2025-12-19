@@ -22,6 +22,8 @@
     2.  Calculate the distance (Euclidean) between the query instance and all training samples.
     3.  Sort the distances and pick the top $k$.
     4.  Take the majority vote of the labels.
+*   **2.7 Visual Summary**:
+    ![k-NN Visual](knn_visual_summary.png)
 
 ### Algorithm 2: Support Vector Machine (SVM)
 *   **2.1 Definition**: A supervised learning model that constructs a hyperplane or set of hyperplanes in a high-dimensional space for classification.
@@ -31,6 +33,8 @@
 *   **2.5 How to use**:
     1.  Map input vectors to a high-dimensional space (using a Kernel like RBF).
     2.  Find the hyperplane that maximizes the distance to the nearest data point of any class.
+*   **2.7 Visual Summary**:
+    ![SVM Visual](svm_visual_summary.png)
 
 ### Algorithm 3: Decision Tree
 *   **2.1 Definition**: A flowchart-like structure where an internal node represents a feature (or attribute), the branch represents a decision rule, and each leaf node represents the outcome.
@@ -41,6 +45,8 @@
     1.  Select the best attribute to split the records (using Information Gain or Gini index).
     2.  Make that attribute a decision node and break the dataset into smaller subsets.
     3.  Recursively allow this process until all data is classified.
+*   **2.7 Visual Summary**:
+    ![Decision Tree Visual](dt_visual_summary.png)
 
 ### Algorithm 4: Random Forest
 *   **2.1 Definition**: An ensemble learning method that operates by constructing a multitude of decision trees at training time and outputting the class that is the mode of the classes.
@@ -51,6 +57,8 @@
     1.  Create $N$ bootstrap samples (random samples with replacement).
     2.  Train a decision tree on each sample.
     3.  Aggregate the predictions (Majority Voting).
+*   **2.7 Visual Summary**:
+    ![Random Forest Visual](rf_visual_summary.png)
 
 ---
 

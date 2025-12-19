@@ -133,6 +133,11 @@ def perform_eda(df):
     # METHOD: value_counts(normalize=True)
     # ARGUMENTS:
     #   - normalize: True. Returns relative frequencies (percentages) instead of raw counts.
+    # The line normalize=True in df['Churn'].value_counts(normalize=True) changes the output of the value_counts() function.
+    # Before: It would return the absolute count of unique values (e.g., 5000 "No", 1500 "Yes").
+    # After (normalize=True): It returns the proportion or percentage of each value relative to the total number of rows.
+    # Example: 0.73 for "No" and 0.27 for "Yes".
+    # The values will always sum up to 1.0.
     # WHY: To see if we have an imbalanced dataset (e.g., 90% No vs 10% Yes).
     # EXPECTED OUTPUT: Series showing percentage of Churn=Yes vs No.
     print("\nClass Distribution:\n", df['Churn'].value_counts(normalize=True))
@@ -151,14 +156,17 @@ def prepare_data(df):
     if 'customerID' in df.columns:
         # METHOD: df.drop()
         # ARGUMENTS: axis=1 (columns).
-        df = df.drop('customerID', axis=1)
+        df = df.drop('customerID', axis=1)  
         
     # WHAT: Cleaning Step - Handling 'TotalCharges'.
     # PROBLEM: It is imported as 'object' (string) because of some blank values " ".
     # METHOD: pd.to_numeric(arg, errors)
     # ARGUMENTS:
     #   - arg: df['TotalCharges']. The column to convert.
-    #   - errors: 'coerce'. This turns invalid parsing (like " ") into NaN (Not a Number).
+    #   - errors: 'coerce'. 
+    #     "Coerce" means "force". If a value cannot be converted (like " " or "abc"), 
+    #     instead of crashing the program (errors='raise'), it replaces the bad value with NaN (Not a Number).
+    #     Example: ['100', ' '] -> [100.0, NaN]
     # WHY: We need it to be a float for math operations.
     df['TotalCharges'] = pd.to_numeric(df['TotalCharges'], errors='coerce')
     
@@ -179,7 +187,9 @@ def prepare_data(df):
     
     # WHAT: Identifying Categorical Columns.
     # METHOD: select_dtypes(include=['object'])
-    # WHY: To know which columns need One-Hot Encoding.
+    # WHY: Machine Learning models cannot effectively read text. We need to identify columns containing text (pandas type 'object')
+    #      so we can transform them into numbers (0/1) in the next step.
+    #      Example: Finds ['Gender', 'Partner', 'PhoneService'...]
     cat_cols = X.select_dtypes(include=['object']).columns
     print(f"Encoding categorical columns: {list(cat_cols)}")
     
@@ -197,7 +207,10 @@ def prepare_data(df):
     # METHOD: train_test_split(X, y, test_size, stratify, random_state)
     # ARGUMENTS:
     #   - test_size: 0.3. Puts 30% into test set (temp).
-    #   - stratify: `y`. Ensures the Churn ratio (Yes/No) is maintained in both splits.
+    #   - stratify: `y`. 
+    #     Ensures the Churn ratio (Yes/No) is maintained in both splits.
+    #     Example: If the original data has 10% Churners, both Train and Test sets will also have exactly 10% Churners.
+    #     This prevents a "bad random split" where all the Churners end up in the test set.
     #   - random_state: 42. Ensures reproducibility.
     # EXPECTED OUTPUT: 4 DataFrames/Series.
     X_train, X_temp, y_train, y_temp = train_test_split(X, y, test_size=0.3, stratify=y, random_state=42)
