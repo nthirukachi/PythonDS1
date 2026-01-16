@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TPR Drop Analysis After New Scanner Introduction - Slides</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .slide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 16px;
+            padding: 48px 56px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            page-break-after: always;
+            min-height: 600px;
+            position: relative;
+        }
+        
+        .slide:last-child {
+            page-break-after: avoid;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: #1a73e8;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        h1 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 36px;
+            color: #1a73e8;
+            margin-bottom: 24px;
+            font-weight: 500;
+            border-bottom: 3px solid #1a73e8;
+            padding-bottom: 16px;
+        }
+        
+        h2 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 28px;
+            color: #202124;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        h3 {
+            font-size: 20px;
+            color: #1a73e8;
+            margin: 24px 0 12px 0;
+            font-weight: 500;
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 24px;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #202124;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        li::marker {
+            color: #1a73e8;
+        }
+        
+        code {
+            background: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 15px;
+            color: #ea4335;
+        }
+        
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        
+        th {
+            background: #1a73e8;
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #dadce0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        blockquote {
+            border-left: 4px solid #1a73e8;
+            padding: 16px 24px;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 18px;
+        }
+        
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 550px;
+        }
+        
+        .title-slide h1 {
+            font-size: 48px;
+            border: none;
+            margin-bottom: 16px;
+        }
+        
+        hr {
+            border: none;
+            height: 2px;
+            background: #dadce0;
+            margin: 32px 0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .slide {
+                box-shadow: none;
+                border: 1px solid #dadce0;
+                margin: 0;
+                page-break-after: always;
+            }
+            
+            .slide-number {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide title-slide">
+<h1>NotebookLM-Style Slides: TPR Drop After New Scanner Introduction</h1>
+</div>
+
+<div class="slide">
+<h1>Title & Objective</h1>
+
+<h1>TPR Drop Analysis After New Scanner Introduction</h1>
+
+<h3>🎯 Objective</h3>
+<p>Understand why <strong>slice-wise TPR drops sharply</strong> for one site after a new scanner is introduced, while service metrics remain normal.</p>
+
+<h3>Learning Goals</h3>
+<ul>
+<li>Distinguish <strong>data/model issues</strong> from <strong>service issues</strong></li>
+<li>Master <strong>4 diagnostic approaches</strong></li>
+<li>Implement <strong>3 mitigation strategies</strong></li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Problem Statement</h1>
+
+<h1>The Problem</h1>
+
+<blockquote>Slice-wise TPR drops sharply for one site after a new scanner is introduced</blockquote>
+
+<h3>Key Facts</h3>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>After</th>
+<th>Service Metrics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Site 3 TPR: 0.92</td>
+<td>Site 3 TPR: 0.65</td>
+<td>Latency: Normal ✅</td>
+</tr>
+<tr>
+<td>All sites similar</td>
+<td>Only Site 3 drops</td>
+<td>Error Rate: Normal ✅</td>
+</tr>
+</tbody>
+</table>
+
+<h3>The Question</h3>
+<strong>Is this a service issue or a data/model issue?</strong>
+</div>
+
+<div class="slide">
+<h1>Real-World Use Case</h1>
+
+<h1>Medical Imaging Scenario</h1>
+
+<h3>Context</h3>
+<ul>
+<li><strong>3 hospital sites</strong> with different scanners</li>
+<li><strong>ML model</strong> for disease detection</li>
+<li><strong>New scanner</strong> deployed at Site 3</li>
+</ul>
+
+<h3>The Risk</h3>
+<ul>
+<li><strong>False Negatives = Missed disease</strong></li>
+<li><strong>Patients at Site 3</strong> receiving worse care</li>
+<li><strong>System appears healthy</strong> but predictions are wrong</li>
+</ul>
+
+<h3>Industry Relevance</h3>
+<ul>
+<li>Healthcare, Radiology, Pathology</li>
+<li>Any ML system with diverse data sources</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Input Data / Inputs</h1>
+
+<h1>Data Overview</h1>
+
+<h3>Multi-Site Scanner Data</h3>
+<pre><code>📊 1000 samples per scanner
+
+<p>Scanner_A (Site_1): Original, Mean=100, Std=15</p>
+<p>Scanner_B (Site_2): Similar to A, Mean=100, Std=15</p>
+<p>Scanner_C (Site_3): NEW, Mean=120, Std=25 + Noise</code></pre></p>
+
+<h3>Feature Structure</h3>
+<ul>
+<li>10 numeric features (simulated image characteristics)</li>
+<li>Binary labels (disease present/absent)</li>
+<li>Scanner and site metadata</li>
+</ul>
+
+<h3>Key Difference</h3>
+<strong>New scanner has DIFFERENT distribution!</strong>
+</div>
+
+<div class="slide">
+<h1>Concepts Used (High Level)</h1>
+
+<h1>Key Concepts</h1>
+
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TPR (Recall)</strong></td>
+<td>Measure positive class detection</td>
+</tr>
+<tr>
+<td><strong>Covariate Shift</strong></td>
+<td>Input distribution change</td>
+</tr>
+<tr>
+<td><strong>Slice-based Monitoring</strong></td>
+<td>Per-subgroup evaluation</td>
+</tr>
+<tr>
+<td><strong>KL Divergence</strong></td>
+<td>Quantify distribution difference</td>
+</tr>
+<tr>
+<td><strong>Safe Fallback</strong></td>
+<td>Human-in-the-loop protection</td>
+</tr>
+<tr>
+<td><strong>Domain Adaptation</strong></td>
+<td>Model robustness improvement</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="slide">
+<h1>Concepts Breakdown (Simple)</h1>
+
+<h1>Simple Explanations</h1>
+
+<h3>TPR = True Positive Rate</h3>
+<blockquote>"Out of 100 disease cases, how many did we correctly detect?"</blockquote>
+
+<h3>Covariate Shift</h3>
+<blockquote>"Training data looks different from production data"</blockquote>
+
+<h3>Slice-based Monitoring</h3>
+<blockquote>"Check accuracy for each group separately, not just overall"</blockquote>
+
+<h3>Safe Fallback</h3>
+<blockquote>"When unsure, let a human expert decide"</blockquote>
+</div>
+
+<div class="slide">
+<h1>Step-by-Step Solution Flow</h1>
+
+<h1>Solution Flow</h1>
+
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+<p>│  1. OBSERVE                                                 │</p>
+<p>│     ↓ TPR drops for Site 3                                  │</p>
+<p>│     ↓ Service metrics normal                                │</p>
+<p>│                                                             │</p>
+<p>│  2. DIAGNOSE                                                │</p>
+<p>│     ↓ Feature distribution comparison                       │</p>
+<p>│     ↓ Confidence calibration check                          │</p>
+<p>│     ↓ Confusion matrix breakdown                            │</p>
+<p>│     ↓ Temporal trend analysis                               │</p>
+<p>│                                                             │</p>
+<p>│  3. MITIGATE                                                │</p>
+<p>│     ↓ P0: Safe fallback (human review)                      │</p>
+<p>│     ↓ P1: Preprocessing normalization                       │</p>
+<p>│     ↓ P2: Domain adaptation / retraining                    │</p>
+<p>└─────────────────────────────────────────────────────────────┘</code></pre></p>
+</div>
+
+<div class="slide">
+<h1>Code Logic Summary</h1>
+
+<h1>Code Structure</h1>
+
+<h3>Main Sections</h3>
+<ol>
+<li><strong>Simulate Data</strong>: 3 scanners with different distributions</li>
+<li><strong>Train Model</strong>: Only on original scanners (A, B)</li>
+<li><strong>Evaluate per Slice</strong>: TPR for each scanner</li>
+<li><strong>Check Service Metrics</strong>: Confirm infrastructure healthy</li>
+<li><strong>Run Diagnostics</strong>: 4 diagnostic functions</li>
+<li><strong>Apply Mitigations</strong>: 3 mitigation strategies</li>
+</ol>
+
+<h3>Key Functions</h3>
+<ul>
+<li><code>simulate_scanner_data()</code></li>
+<li><code>train_model_on_original_scanners()</code></li>
+<li><code>evaluate_per_scanner()</code></li>
+<li><code>diagnostic_<em>()</code> functions</li>
+<li><code>mitigation_</em>()</code> functions</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Important Functions & Parameters</h1>
+
+<h1>Key Functions</h1>
+
+<h3><code>evaluate_per_scanner(df, model, scaler)</code></h3>
+<ul>
+<li>Calculates TPR per scanner slice</li>
+<li>Returns confusion matrix breakdown</li>
+</ul>
+
+<h3><code>diagnostic_feature_distribution(df)</code></h3>
+<ul>
+<li>Computes KL divergence per feature</li>
+<li>Threshold > 0.1 = significant shift</li>
+</ul>
+
+<h3><code>mitigation_safe_fallback(df, model, scaler, confidence_threshold=0.7)</code></h3>
+<ul>
+<li>Routes low-confidence predictions to human review</li>
+<li>Default threshold: 0.7</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Execution Output</h1>
+
+<h1>Results</h1>
+
+<h3>TPR per Scanner</h3>
+<table>
+<thead>
+<tr>
+<th>Scanner</th>
+<th>TPR</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scanner_A</td>
+<td>0.91</td>
+<td>✅ Normal</td>
+</tr>
+<tr>
+<td>Scanner_B</td>
+<td>0.90</td>
+<td>✅ Normal</td>
+</tr>
+<tr>
+<td>Scanner_C_NEW</td>
+<td>0.65</td>
+<td>🔴 DEGRADED</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Service Metrics</h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latency</td>
+<td>50ms</td>
+<td>✅ Healthy</td>
+</tr>
+<tr>
+<td>Error Rate</td>
+<td>0.1%</td>
+<td>✅ Healthy</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Diagnostic: KL Divergence</h3>
+<ul>
+<li>feature_0: <strong>0.35</strong> (high shift!)</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Observations & Insights</h1>
+
+<h1>Key Insights</h1>
+
+<h3>1. Overall Accuracy Hides Subgroup Issues</h3>
+<blockquote>If we only monitored overall accuracy, we would NOT have detected this issue</blockquote>
+
+<h3>2. Normal Service ≠ Healthy Model</h3>
+<blockquote>System appears healthy but predictions are wrong (silent failure)</blockquote>
+
+<h3>3. New Scanner = Distribution Shift</h3>
+<blockquote>KL Divergence confirms the new scanner data is very different</blockquote>
+
+<h3>4. Model is Confidently Wrong</h3>
+<blockquote>High confidence on false negatives = miscalibration</blockquote>
+</div>
+
+<div class="slide">
+<h1>Advantages & Limitations</h1>
+
+<h1>Analysis Summary</h1>
+
+<h3>Advantages of This Approach</h3>
+<table>
+<thead>
+<tr>
+<th>✅ Advantage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detects silent failures</td>
+</tr>
+<tr>
+<td>Quantifies distribution shift</td>
+</tr>
+<tr>
+<td>Provides actionable mitigations</td>
+</tr>
+<tr>
+<td>Enables safe deployment</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Limitations</h3>
+<table>
+<thead>
+<tr>
+<th>❌ Limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requires labeled data for adaptation</td>
+</tr>
+<tr>
+<td>KL divergence sensitive to binning</td>
+</tr>
+<tr>
+<td>Human review doesn't scale infinitely</td>
+</tr>
+<tr>
+<td>Preprocessing may not capture all differences</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="slide">
+<h1>Interview Key Takeaways</h1>
+
+<h1>Interview Prep</h1>
+
+<h3>Q1: Why is this a data/model issue, not service issue?</h3>
+<blockquote>"Service metrics (latency, error rate) are normal, indicating healthy infrastructure. The TPR drop is isolated to one site/scanner, pointing to data distribution shift."</blockquote>
+
+<h3>Q2: What diagnostics would you run?</h3>
+<blockquote>"Feature distribution comparison (KL divergence), confidence calibration check, per-scanner confusion matrices, and temporal trend analysis."</blockquote>
+
+<h3>Q3: What's your first mitigation?</h3>
+<blockquote>"Safe fallback - route low-confidence predictions to human review for immediate protection."</blockquote>
+
+<h3>Q4: Why implement slice-based monitoring?</h3>
+<blockquote>"Overall accuracy hides subgroup issues. A model can have 95% accuracy but 60% TPR for a specific demographic."</blockquote>
+</div>
+
+<div class="slide">
+<h1>Conclusion</h1>
+
+<h1>Summary</h1>
+
+<h3>Root Cause</h3>
+<strong>Covariate shift</strong> from new scanner with different data characteristics
+
+<h3>Evidence</h3>
+<ul>
+<li>✅ Service metrics normal</li>
+<li>🔴 TPR drop isolated to Site 3</li>
+<li>📊 High KL divergence confirmed</li>
+<li>📅 Temporal correlation with scanner rollout</li>
+</ul>
+
+<h3>Action Plan</h3>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>Safe fallback (human review)</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Preprocessing normalization</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Domain adaptation / retraining</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Key Takeaway</h3>
+<blockquote><strong>Always monitor slice-wise metrics. Service health ≠ model health. Implement safe fallbacks for high-stakes applications.</strong></blockquote>
+</div>
+
+<div class="slide">
+<em>End of Presentation</em>
+</div>
+    </div>
+    
+    <script>
+        // Add slide numbers
+        document.querySelectorAll('.slide').forEach((slide, index) => {
+            const num = document.createElement('div');
+            num.className = 'slide-number';
+            num.textContent = (index + 1);
+            slide.appendChild(num);
+        });
+    </script>
+</body>
+</html>
