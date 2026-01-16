@@ -1,57 +1,61 @@
 ---
-description: How to generate PDF slides for teaching projects
+description: How to generate PDF slides for teaching projects (NotebookLM Style)
 ---
 
-# PDF Slide Generation Workflow
+# PDF Slide Generation Workflow (NotebookLM Style)
 
 ## IMPORTANT: Always Use Direct PDF Generation
+**DO NOT** use browser print-to-PDF approach.
+**ALWAYS** generate PDF directly using Python `reportlab`.
 
-**DO NOT** use browser print-to-PDF approach. 
-**ALWAYS** generate PDF directly using Python libraries.
+## Method: Use reportlab + Matplotlib
 
-## Method: Use reportlab Library
-
-### Step 1: Ensure reportlab is installed
+### Step 1: Ensure libraries are installed
 ```powershell
-& c:/nagpython/demouv/.venv/Scripts/pip.exe install reportlab
+& c:/nagpython/demouv/.venv/Scripts/pip.exe install reportlab matplotlib seaborn
 ```
 
-### Step 2: Create a direct PDF generator script
+### Step 2: Create a Diagram Generator
+Create `slides/generate_diagrams.py` to produce clean, "NotebookLM-style" visualizations (Pastel colors, minimalist).
+- **Distribution Plots**: For Data Drift (P(X)).
+- **Sigmoid/Scatter Plots**: For Concept Drift (P(Y|X)).
+- **Flowcharts**: For System Architecture (using `matplotlib.patches`).
+- **Output**: Save all images to `slides/images/*.png`.
 
-Create `generate_pdf_direct.py` in the `slides/` folder with:
-- Import reportlab components
-- Define slide content as structured data
-- Use landscape LETTER page size
-- Create styled paragraphs, headings, tables, and bullets
-- Generate PDF directly without browser
+### Step 3: Create PDF Generator
+Create `slides/generate_pdf_direct.py` with:
+- `reportlab` imports (`SimpleDocTemplate`, `Image`, etc.).
+- Defined `SLIDES` list with structured content.
+- **Image Embedding**: Import and resize images from `slides/images/` into relevant slides.
+- Use landscape LETTER page size.
 
-### Step 3: Run the generator
+### Step 4: Run the Generators
 ```powershell
+# 1. Generate Images
+& c:/nagpython/demouv/.venv/Scripts/python.exe path/to/slides/generate_diagrams.py
+
+# 2. Generate PDF
 & c:/nagpython/demouv/.venv/Scripts/python.exe path/to/slides/generate_pdf_direct.py
 ```
 
-## Template Code Structure
-
-```python
-from reportlab.lib.pagesizes import LETTER, landscape
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, PageBreak
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-
-# Define SLIDES as list of dicts with 'title' and 'content'
-# Content is list of tuples: ('heading'|'body'|'bullet'|'table', content)
-
-def generate_pdf():
-    doc = SimpleDocTemplate("slides.pdf", pagesize=landscape(LETTER))
-    # ... generate elements from SLIDES
-    doc.build(elements)
+### Step 5: Cleanup (MANDATORY)
+Once the PDF is generated and verified:
+**DELETE** the generator scripts to keep the project clean.
+```powershell
+del path/to/slides/generate_diagrams.py
+del path/to/slides/generate_pdf_direct.py
+# Also delete notebook generator if applicable
+del path/to/notebook/create_notebook.py
 ```
 
-## Reference Implementation
-
-See: `c:\nagpython\demouv\tpr_drop_scanner_analysis\slides\generate_pdf_direct.py`
-
-## Why Direct PDF?
-1. No manual browser interaction required
-2. Consistent output every time
-3. Can be automated in scripts
-4. Works in headless environments
+## Template Code Structure
+```python
+from reportlab.platypus import Image
+# ...
+def get_image(filename):
+    return Image(path, width=400, height=200, kind='proportional')
+# ...
+slides = [
+    {"title": "Slide With Image", "content": [("image", "my_plot.png")]}
+]
+```
