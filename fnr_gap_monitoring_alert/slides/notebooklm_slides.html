@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNR Gap Monitoring Alert System - Slides</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .slide-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 16px;
+            padding: 48px 56px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            page-break-after: always;
+            min-height: 600px;
+            position: relative;
+        }
+        
+        .slide:last-child {
+            page-break-after: avoid;
+        }
+        
+        .slide-number {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: #1a73e8;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        h1 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 36px;
+            color: #1a73e8;
+            margin-bottom: 24px;
+            font-weight: 500;
+            border-bottom: 3px solid #1a73e8;
+            padding-bottom: 16px;
+        }
+        
+        h2 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 28px;
+            color: #202124;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        h3 {
+            font-size: 20px;
+            color: #1a73e8;
+            margin: 24px 0 12px 0;
+            font-weight: 500;
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #202124;
+            margin-bottom: 16px;
+        }
+        
+        ul, ol {
+            margin: 16px 0 16px 24px;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #202124;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        li::marker {
+            color: #1a73e8;
+        }
+        
+        code {
+            background: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 15px;
+            color: #ea4335;
+        }
+        
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        
+        th {
+            background: #1a73e8;
+            color: white;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #dadce0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .emoji {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        
+        blockquote {
+            border-left: 4px solid #1a73e8;
+            padding: 16px 24px;
+            margin: 20px 0;
+            background: #f8f9fa;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            font-size: 18px;
+        }
+        
+        .title-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 550px;
+        }
+        
+        .title-slide h1 {
+            font-size: 48px;
+            border: none;
+            margin-bottom: 16px;
+        }
+        
+        .title-slide h2 {
+            font-size: 24px;
+            color: #5f6368;
+            font-weight: 400;
+        }
+        
+        hr {
+            border: none;
+            height: 2px;
+            background: #dadce0;
+            margin: 32px 0;
+        }
+        
+        .formula {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Times New Roman', serif;
+            margin: 20px 0;
+            border: 2px solid #1a73e8;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .slide {
+                box-shadow: none;
+                border: 1px solid #dadce0;
+                margin: 0;
+                page-break-after: always;
+            }
+            
+            .slide-number {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="slide title-slide">
+<p># 📊 FNR Gap Monitoring Alert System</p>
+<h2>NotebookLM-Style Slide Deck</h2>
+</div>
+
+<div class="slide">
+<h1>Title & Objective</h1>
+
+<h2>🚨 FNR Gap Monitoring Alert System</h2>
+<h3>Detecting Unequal Harm in Deployed Binary Classifiers</h3>
+</div>
+
+<div class="slide">
+<strong>Objective:</strong>
+<p>Design a monitoring system that:</p>
+<ul>
+<li>Detects when different groups experience different error rates</li>
+<li>Alerts when disparity exceeds acceptable limits</li>
+<li>Provides clear response procedures</li>
+</ul>
+
+<strong>Why It Matters:</strong>
+<ul>
+<li>ML models can perform well overall but harm specific groups</li>
+<li>Weekly labels enable continuous monitoring</li>
+<li>Fairness is a regulatory and ethical requirement</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Problem Statement</h1>
+
+<h2>🧩 The Problem</h2>
+
+<strong>Scenario:</strong>
+<ul>
+<li>Binary classifier deployed in production (e.g., disease diagnosis)</li>
+<li>Labels available weekly</li>
+<li>Multiple operational slices (hospitals, devices)</li>
+</ul>
+
+<strong>The Challenge:</strong>
+<ul>
+<li>Overall metrics look good</li>
+<li>But some groups experience <strong>more missed cases</strong> than others</li>
+<li>This is <strong>unequal harm</strong></li>
+</ul>
+
+<strong>Question:</strong>
+<blockquote>How do we detect and respond to disparate performance across groups?</blockquote>
+</div>
+
+<div class="slide">
+<h1>Real-World Use Case</h1>
+
+<h2>🏥 Healthcare Example</h2>
+
+<strong>Setting:</strong>
+<ul>
+<li>AI diagnostic system across 5 hospitals</li>
+<li>Predicts disease presence (positive/negative)</li>
+</ul>
+
+<strong>Problem:</strong>
+<ul>
+<li>Overall FNR: 12% (seems acceptable)</li>
+<li>Hospital A FNR: 8% ✅</li>
+<li>Hospital C FNR: 22% ⚠️</li>
+</ul>
+
+<strong>Impact:</strong>
+<ul>
+<li>Hospital C patients miss 22% of positive cases</li>
+<li>That's <strong>1 in 5 cases missed</strong></li>
+<li>Delayed treatment, worse outcomes</li>
+</ul>
+
+<strong>Other Applications:</strong>
+<ul>
+<li>Fraud detection (device type slices)</li>
+<li>Credit scoring (demographic slices)</li>
+<li>Security screening (location slices)</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Input Data / Inputs</h1>
+
+<h2>📊 What Data Do We Need?</h2>
+
+<strong>Per Slice, Per Week:</strong>
+
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>week</code></td>
+<td>Week number</td>
+<td>1, 2, 3...</td>
+</tr>
+<tr>
+<td><code>slice</code></td>
+<td>Operational group</td>
+<td>Hospital_A, Device_Mobile</td>
+</tr>
+<tr>
+<td><code>TP</code></td>
+<td>True Positives</td>
+<td>450</td>
+</tr>
+<tr>
+<td><code>FN</code></td>
+<td>False Negatives</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+
+<strong>Example Input:</strong>
+
+<pre><code>week  slice         TP   FN
+<p>1     Hospital_A    447  53</p>
+<p>1     Hospital_B    433  67</p>
+<p>1     Hospital_C    419  81</code></pre></p>
+
+<strong>Frequency:</strong> Labels available weekly
+</div>
+
+<div class="slide">
+<h1>Concepts Used (High Level)</h1>
+
+<h2>🔑 Key Concepts</h2>
+
+<ol>
+<li><strong>FNR (False Negative Rate)</strong></li>
+</ol>
+<ul>
+<li>How many positives we miss</li>
+<li>FNR = FN / (TP + FN)</li>
+</ul>
+
+<ol>
+<li><strong>Operational Slices</strong></li>
+</ol>
+<ul>
+<li>Subgroups to monitor separately</li>
+<li>Examples: Hospital, Device, Region</li>
+</ul>
+
+<ol>
+<li><strong>Gap Metric</strong></li>
+</ol>
+<ul>
+<li>Disparity between worst and best</li>
+<li>Gap = max(FNR) - min(FNR)</li>
+</ul>
+
+<ol>
+<li><strong>Alert Threshold</strong></li>
+</ol>
+<ul>
+<li>When to fire alert</li>
+<li>Example: Gap > 10%</li>
+</ul>
+
+<ol>
+<li><strong>Rolling Window</strong></li>
+</ol>
+<ul>
+<li>Aggregate over 4 weeks</li>
+<li>Reduces noise</li>
+</ul>
+
+<ol>
+<li><strong>Runbook</strong></li>
+</ol>
+<ul>
+<li>What to do when alert fires</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Detailed Concepts Breakdown</h1>
+
+<h2>📚 Deep Dive</h2>
+
+<h3>FNR (False Negative Rate)</h3>
+
+<pre><code>FNR = FN / (TP + FN)</code></pre>
+
+<ul>
+<li>Measures: % of positives we <strong>missed</strong></li>
+<li>Range: 0 to 1 (0% to 100%)</li>
+<li>Lower is better</li>
+</ul>
+
+<strong>Example:</strong>
+<ul>
+<li>TP = 85, FN = 15</li>
+<li>FNR = 15 / (85+15) = 0.15 (15%)</li>
+</ul>
+</div>
+
+<div class="slide">
+<h3>Gap Metric</h3>
+
+<pre><code>Gap = max_g(FNR_g) - min_g(FNR_g)</code></pre>
+
+<ul>
+<li>Measures: Disparity between groups</li>
+<li>0 = perfect equality</li>
+<li>Higher = more inequality</li>
+</ul>
+
+<strong>Example:</strong>
+<ul>
+<li>Hospital_A FNR: 0.08</li>
+<li>Hospital_C FNR: 0.22</li>
+<li>Gap = 0.22 - 0.08 = 0.14 (14%)</li>
+</ul>
+</div>
+
+<div class="slide">
+<h3>Rolling Window</h3>
+
+<ul>
+<li><strong>Why?</strong> Weekly data is noisy</li>
+<li><strong>How?</strong> Aggregate over 4 weeks</li>
+<li><strong>Result:</strong> Smoother, more stable metrics</li>
+</ul>
+</div>
+
+<div class="slide">
+<h1>Step-by-Step Solution Flow</h1>
+
+<h2>🪜 Algorithm Flow</h2>
+
+<pre><code>flowchart TD
+<p>    A[Collect Weekly Data] --> B[Calculate FNR per Slice]</p>
+<p>    B --> C[Apply Rolling Window]</p>
+<p>    C --> D[Calculate Gap Metric]</p>
+<p>    D --> E{Gap > Threshold?}</p>
+<table>
+<thead>
+<tr>
+<th>E --></th>
+<th>Yes</th>
+<th>F[🚨 Fire Alert]</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>    F --> H[Execute Runbook]</p>
+<p>    H --> I[Investigate & Fix]</p>
+<p>    G --> A</code></pre></p>
+
+<strong>Steps:</strong>
+<ol>
+<li>Collect TP, FN per slice per week</li>
+<li>Calculate FNR for each slice</li>
+<li>Aggregate over 4-week window</li>
+<li>Compute Gap = max - min</li>
+<li>Check if Gap > threshold (10%)</li>
+<li>If yes → Alert + Runbook</li>
+<li>If no → Continue monitoring</li>
+</ol>
+</div>
+
+<div class="slide">
+<h1>Code Logic Summary</h1>
+
+<h2>💻 Key Functions</h2>
+
+<h3>1. Calculate FNR per Slice</h3>
+<pre><code>def calculate_fnr(tp, fn):
+<p>    return fn / (tp + fn)</code></pre></p>
+
+<h3>2. Calculate Gap Metric</h3>
+<pre><code>def calculate_gap(fnr_dict):
+<p>    max_fnr = max(fnr_dict.values())</p>
+<p>    min_fnr = min(fnr_dict.values())</p>
+<p>    return max_fnr - min_fnr</code></pre></p>
+
+<h3>3. Check Alert Threshold</h3>
+<pre><code>def check_alert(gap, threshold=0.10):
+<p>    return gap > threshold</code></pre></p>
+
+<h3>4. Execute Runbook</h3>
+<pre><code>def execute_runbook(gap, worst_slice):
+<p>    # Print immediate actions</p>
+<p>    # Notify stakeholders</p>
+<p>    # Log investigation steps</code></pre></p>
+</div>
+
+<div class="slide">
+<h1>Important Functions & Parameters</h1>
+
+<h2>⚙️ Key Parameters</h2>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ALERT_THRESHOLD</code></td>
+<td>0.10</td>
+<td>Gap that triggers alert</td>
+</tr>
+<tr>
+<td><code>TIME_WINDOW_WEEKS</code></td>
+<td>4</td>
+<td>Rolling window size</td>
+</tr>
+<tr>
+<td><code>OPERATIONAL_SLICES</code></td>
+<td>5</td>
+<td>Number of groups</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Function: <code>calculate_fnr_per_slice(tp, fn)</code></h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tp</code></td>
+<td>int</td>
+<td>True Positives count</td>
+</tr>
+<tr>
+<td><code>fn</code></td>
+<td>int</td>
+<td>False Negatives count</td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td>float</td>
+<td>FNR between 0 and 1</td>
+</tr>
+</tbody>
+</table>
+
+<h3>Function: <code>calculate_fnr_gap(fnr_dict)</code></h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fnr_dict</code></td>
+<td>Dict</td>
+<td>Slice name → FNR</td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td>Tuple</td>
+<td>(gap, worst_slice, best_slice)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="slide">
+<h1>Execution Output</h1>
+
+<h2>📊 Sample Output</h2>
+
+<h3>When No Alert:</h3>
+<pre><code>✅ NO ALERT: Week 4
+<p>Gap Value:     0.0823 (8.23%)</p>
+<p>Threshold:     0.1000 (10.00%)</p>
+<p>Status:        WITHIN LIMITS</code></pre></p>
+
+<h3>When Alert Fires:</h3>
+<pre><code>🚨 ALERT FIRED: Week 6
+<p>Gap Value:     0.1124 (11.24%)</p>
+<p>Threshold:     0.1000 (10.00%)</p>
+<p>Status:        EXCEEDED</p>
+
+<p>⚠️ WORST Device_Desktop: 0.2234 (22.34%)</p>
+<p>✅ BEST  Hospital_A:      0.1042 (10.42%)</code></pre></p>
+
+<h3>Gap Over Time:</h3>
+<pre><code>Week 4: Gap = 0.0823 ✅
+<p>Week 5: Gap = 0.0956 ✅</p>
+<p>Week 6: Gap = 0.1124 🚨</p>
+<p>Week 7: Gap = 0.1189 🚨</p>
+<p>Week 8: Gap = 0.1245 🚨</code></pre></p>
+</div>
+
+<div class="slide">
+<h1>Observations & Insights</h1>
+
+<h2>🔍 Key Findings</h2>
+
+<h3>Observation 1: Disparity Increases Over Time</h3>
+<ul>
+<li>Week 4 Gap: 8.23%</li>
+<li>Week 8 Gap: 12.45%</li>
+<li><strong>Trend: Getting worse!</strong></li>
+</ul>
+
+<h3>Observation 2: Consistent Worst Performer</h3>
+<ul>
+<li>Device_Desktop always highest FNR</li>
+<li>Needs targeted investigation</li>
+</ul>
+
+<h3>Observation 3: Alert Persistence</h3>
+<ul>
+<li>Once alert fires, it stays active</li>
+<li>Indicates systemic issue (not noise)</li>
+</ul>
+
+<h3>Observation 4: Early Warning Possible</h3>
+<ul>
+<li>Week 5 at 95.6% of threshold</li>
+<li>Could add "warning zone"</li>
+</ul>
+</div>
+
+<div class="slide">
+<h2>💡 Recommendations</h2>
+
+<ol>
+<li>Investigate Device_Desktop immediately</li>
+<li>Consider tiered alerts (warning + critical)</li>
+<li>Check for data quality issues</li>
+<li>May need model retraining</li>
+</ol>
+</div>
+
+<div class="slide">
+<h1>Advantages & Limitations</h1>
+
+<h2>✅ Advantages</h2>
+
+<table>
+<thead>
+<tr>
+<th>Advantage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Simple Metric</strong></td>
+<td>Easy to calculate and explain</td>
+</tr>
+<tr>
+<td><strong>Interpretable</strong></td>
+<td>Gap in percentage points</td>
+</tr>
+<tr>
+<td><strong>Actionable</strong></td>
+<td>Clear threshold for action</td>
+</tr>
+<tr>
+<td><strong>Flexible</strong></td>
+<td>Works with any slice definition</td>
+</tr>
+<tr>
+<td><strong>Automated</strong></td>
+<td>Can run without human intervention</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="slide">
+<h2>❌ Limitations</h2>
+
+<table>
+<thead>
+<tr>
+<th>Limitation</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Only considers extremes</strong></td>
+<td>Add median/variance analysis</td>
+</tr>
+<tr>
+<td><strong>Sensitive to outliers</strong></td>
+<td>Use rolling window</td>
+</tr>
+<tr>
+<td><strong>Binary alert</strong></td>
+<td>Add warning thresholds</td>
+</tr>
+<tr>
+<td><strong>Needs labels</strong></td>
+<td>Wait for ground truth</td>
+</tr>
+<tr>
+<td><strong>Doesn't explain cause</strong></td>
+<td>Combine with error analysis</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="slide">
+<h1>Interview Key Takeaways</h1>
+
+<h2>💼 Common Interview Questions</h2>
+
+<h3>Q1: What is FNR Gap?</h3>
+<strong>A:</strong> The difference between the worst and best FNR across operational slices. It measures disparity in model performance.
+
+<h3>Q2: Why monitor slices separately?</h3>
+<strong>A:</strong> Overall metrics can hide unfair performance. Slice monitoring reveals hidden harm to specific groups.
+
+<h3>Q3: How to set the threshold?</h3>
+<strong>A:</strong> Consider:
+<ul>
+<li>Historical gap values</li>
+<li>Business risk tolerance</li>
+<li>Regulatory requirements</li>
+<li>False alarm cost</li>
+</ul>
+
+<h3>Q4: What's in a runbook?</h3>
+<strong>A:</strong> Step-by-step actions:
+<ul>
+<li>Immediate (24h): Notify, investigate</li>
+<li>Short-term (1 week): Root cause, document</li>
+<li>Follow-up (1 month): Fix, verify, improve</li>
+</ul>
+
+<h3>Q5: Why use rolling window?</h3>
+<strong>A:</strong> Weekly data is noisy. Rolling window smooths fluctuations for stable metrics.
+</div>
+
+<div class="slide">
+<h1>Conclusion</h1>
+
+<h2>📌 Summary</h2>
+
+<h3>What We Built</h3>
+<ul>
+<li>FNR Gap Monitoring Alert System</li>
+<li>Detects unequal harm across groups</li>
+<li>Alerts when disparity exceeds threshold</li>
+<li>Provides clear runbook for response</li>
+</ul>
+
+<h3>Key Formula</h3>
+<pre><code>Gap = max(FNR) - min(FNR)</code></pre>
+
+<h3>Key Threshold</h3>
+<pre><code>Alert when Gap > 10%</code></pre>
+
+<h3>Key Actions</h3>
+<ol>
+<li>Define metric (FNR per slice)</li>
+<li>Set threshold (10%)</li>
+<li>Use rolling window (4 weeks)</li>
+<li>Execute runbook when alert fires</li>
+</ol>
+</div>
+
+<div class="slide">
+<h2>🎯 Final Takeaway</h2>
+
+<blockquote><strong>"Overall accuracy can mask unequal harm. Slice-based monitoring with clear thresholds and runbooks is essential for responsible AI deployment."</strong></blockquote>
+</div>
+
+<div class="slide">
+<h2>📚 Next Steps</h2>
+
+<ol>
+<li><strong>Practice:</strong> Run the code yourself</li>
+<li><strong>Customize:</strong> Add your own slices</li>
+<li><strong>Extend:</strong> Add visualization</li>
+<li><strong>Learn:</strong> Study other fairness metrics</li>
+</ol>
+</div>
+
+<div class="slide">
+<p># 🙏 Thank You!</p>
+
+<strong>Questions?</strong>
+</div>
+
+<div class="slide">
+<em>Created for learning Responsible AI and ML Monitoring</em>
+</div>
+    </div>
+    
+    <script>
+        // Add slide numbers
+        document.querySelectorAll('.slide').forEach((slide, index) => {
+            const num = document.createElement('div');
+            num.className = 'slide-number';
+            num.textContent = (index + 1);
+            slide.appendChild(num);
+        });
+    </script>
+</body>
+</html>
